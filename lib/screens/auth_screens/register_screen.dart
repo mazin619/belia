@@ -1,7 +1,5 @@
-import 'package:car_project/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -11,7 +9,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 final List<String> gender = ['Male', 'Female'];
-final List<String> options = ['Yes', 'No'];
 final List<String> age = [
   '16',
   '17',
@@ -101,7 +98,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           padding: const EdgeInsets.all(25),
           child: Form(
             key: registerFromKey,
-            autovalidateMode: AutovalidateMode.always,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -115,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
                   //first, last name
                   Row(
                     children: [
@@ -130,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            5.verticalSpace,
+                            const SizedBox(height: 5),
                             TextFormField(
                               controller: fNameController,
                               validator: (value) {
@@ -143,14 +139,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 hintText: 'Enter first name',
                               ),
                               inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r'[a-zA-Z]')),
+                                FilteringTextInputFormatter.allow(RegExp(
+                                  r'^[a-zA-Z\u0600-\u06FF]+$',
+                                )),
                               ],
                             ),
                           ],
                         ),
                       ),
-                      10.horizontalSpace,
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            5.verticalSpace,
+                            const SizedBox(height: 5),
                             TextFormField(
                               controller: lNameController,
                               validator: (value) {
@@ -176,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                    RegExp(r'[a-zA-Z]')),
+                                    RegExp(r'^[a-zA-Z\u0600-\u06FF]+$')),
                               ],
                             ),
                           ],
@@ -184,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ],
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
                   //email
                   const Text(
                     'Email',
@@ -193,16 +190,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  5.verticalSpace,
+                  const SizedBox(height: 5),
                   TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) => validateEmail(value),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter email";
+                      } else if (!RegExp(
+                              r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                          .hasMatch(value)) {
+                        return "Enter a valid email";
+                      }
+                      return null;
+                    },
                     decoration: const InputDecoration(
                       hintText: 'Enter your email',
                     ),
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
                   //phone
                   const Text(
                     'Phone',
@@ -211,13 +218,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  5.verticalSpace,
+                  const SizedBox(height: 5),
                   TextFormField(
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter phone";
+                      } else if (!RegExp(r'^(010|011|012|015)\d{8}$')
+                          .hasMatch(value)) {
+                        return "Enter a valid phone";
                       }
                       return null;
                     },
@@ -229,7 +240,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       LengthLimitingTextInputFormatter(11),
                     ],
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
                   //password
                   const Text(
                     'Password',
@@ -238,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  5.verticalSpace,
+                  const SizedBox(height: 5),
                   TextFormField(
                     obscureText: showPass,
                     controller: passwordController,
@@ -265,7 +276,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           )),
                     ),
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
                   //confirm password
                   const Text(
                     'Confirm Password',
@@ -274,7 +285,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  5.verticalSpace,
+                  const SizedBox(height: 5),
                   TextFormField(
                     obscureText: showPass2,
                     controller: confirmPasswordController,
@@ -305,7 +316,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           )),
                     ),
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
                   //gender
                   Row(
                     children: [
@@ -319,7 +330,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      15.horizontalSpace,
+                      const SizedBox(width: 15),
                       Radio(
                         value: gender[0],
                         groupValue: selectedGender,
@@ -336,7 +347,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      5.horizontalSpace,
+                      const SizedBox(width: 5),
                       Radio(
                         value: gender[1],
                         groupValue: selectedGender,
@@ -366,7 +377,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontWeight: FontWeight.w500, fontSize: 16),
                         ),
                       ),
-                      15.horizontalSpace,
+                      const SizedBox(width: 15),
                       DropdownButton(
                         items: age
                             .map((item) => DropdownMenuItem(
@@ -395,7 +406,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      15.horizontalSpace,
+                      const SizedBox(width: 15),
                       Radio(
                         value: true,
                         groupValue: hasCar,
@@ -412,7 +423,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      5.horizontalSpace,
+                      const SizedBox(width: 5),
                       Radio(
                         value: false,
                         groupValue: hasCar,
@@ -435,7 +446,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            15.verticalSpace,
+                            const SizedBox(height: 15),
                             //plates
                             const Text(
                               'Plate Number',
@@ -444,17 +455,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            5.verticalSpace,
+                            const SizedBox(height: 5),
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
                                   flex: 2,
                                   child: TextFormField(
                                     controller: plateLettersController,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     validator: (value) {
                                       if (hasCar &&
                                           (value == null || value.isEmpty)) {
                                         return "Please enter plate number";
+                                      } else if (hasCar &&
+                                          !RegExp(r'^([A-Z]{3}|[\u0621-\u064A]{1}(?: [\u0621-\u064A]{1}){2})$')
+                                              .hasMatch(value!)) {
+                                        return "Not valid";
                                       }
                                       return null;
                                     },
@@ -470,7 +488,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ],
                                   ),
                                 ),
-                                10.horizontalSpace,
+                                const SizedBox(width: 10),
                                 Expanded(
                                   child: TextFormField(
                                     readOnly: true,
@@ -481,13 +499,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   ),
                                 ),
-                                10.horizontalSpace,
+                                const SizedBox(width: 10),
                                 Expanded(
                                   flex: 2,
                                   child: TextFormField(
-                                    onTapOutside: (event) => FocusManager
-                                        .instance.primaryFocus
-                                        ?.unfocus(),
                                     controller: plateNumberController,
                                     keyboardType: TextInputType.number,
                                     validator: (value) {
@@ -510,7 +525,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ],
                             ),
-                            15.verticalSpace,
+                            const SizedBox(height: 15),
                             //brand,model
                             Row(
                               children: [
@@ -526,7 +541,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      5.verticalSpace,
+                                      const SizedBox(height: 5),
                                       TextFormField(
                                         controller: brandController,
                                         validator: (value) {
@@ -537,14 +552,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           }
                                           return null;
                                         },
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: 'Toyota',
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                10.horizontalSpace,
+                                const SizedBox(width: 10),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -557,7 +572,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      5.verticalSpace,
+                                      const SizedBox(height: 5),
                                       TextFormField(
                                         controller: modelController,
                                         validator: (value) {
@@ -577,7 +592,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ],
                             ),
-                            15.verticalSpace,
+                            const SizedBox(height: 15),
                             //mileage, color
                             Row(
                               children: [
@@ -593,10 +608,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      5.verticalSpace,
+                                      const SizedBox(height: 5),
                                       TextFormField(
                                         controller: mileageController,
                                         keyboardType: TextInputType.number,
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
                                         validator: (value) {
                                           if (hasCar &&
                                               (value == null ||
@@ -622,7 +639,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ],
                                   ),
                                 ),
-                                10.horizontalSpace,
+                                const SizedBox(width: 15),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -635,7 +652,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      5.verticalSpace,
+                                      const SizedBox(height: 5),
                                       DropdownButton(
                                         value: selectedColor,
                                         hint: const Text('Select color'),
@@ -658,7 +675,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         )
                       : const SizedBox(),
-                  20.verticalSpace,
+                  const SizedBox(height: 20),
+                  //register button
                   FilledButton(
                     onPressed: () {
                       if (registerFromKey.currentState!.validate()) {}
@@ -671,6 +689,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
+                  //login button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -680,6 +699,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextButton(
                         onPressed: () {
+                          // Navigate back to the first screen by popping the current route
+                          // off the stack.
                           Navigator.pop(context);
                         },
                         child: const Text(

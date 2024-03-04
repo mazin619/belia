@@ -1,8 +1,4 @@
-import 'package:car_project/screens/auth_screens/register_screen.dart';
-import 'package:car_project/utils/validators.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -51,22 +47,24 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Form(
             key: loginFormKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //image
                   Center(
                     child: SizedBox(
-                        width: 250,
-                        height: 260,
-                        child: Image.asset(
-                          'assets/images/logo.png',
-                          fit: BoxFit.fitWidth,
-                        )),
+                      width: 250,
+                      height: 260,
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
                   ),
-                  20.verticalSpace,
+                  const SizedBox(height: 20),
+                  //title
                   const Text(
                     'Login',
                     style: TextStyle(
@@ -74,7 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
+                  //email
                   const Text(
                     'Email',
                     style: TextStyle(
@@ -82,16 +81,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  5.verticalSpace,
+                  const SizedBox(height: 5),
                   TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) => validateEmail(value),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter email";
+                      } else if (!RegExp(
+                              r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                          .hasMatch(value)) {
+                        return "Enter a valid email";
+                      }
+                      return null;
+                    },
                     decoration: const InputDecoration(
                       hintText: 'Enter your email',
                     ),
                   ),
-                  15.verticalSpace,
+                  const SizedBox(height: 15),
+                  //password
                   const Text(
                     'Password',
                     style: TextStyle(
@@ -99,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  5.verticalSpace,
+                  const SizedBox(height: 5),
                   TextFormField(
                     obscureText: showPass,
                     controller: passwordController,
@@ -126,6 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           )),
                     ),
                   ),
+                  //forgot password
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -137,37 +148,38 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  Center(
-                    child: FilledButton(
-                      onPressed: () {
-                        if (loginFormKey.currentState!.validate()) {
-                          login();
-                        }
-                      },
-                      style: FilledButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 50),
-                        padding: const EdgeInsets.all(10),
-                      ),
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(fontSize: 16),
-                      ),
+                  //login button
+                  FilledButton(
+                    onPressed: () {
+                      if (loginFormKey.currentState!.validate()) {
+                        login();
+                      }
+                    },
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 50),
+                      padding: const EdgeInsets.all(10),
+                    ),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(fontSize: 16),
                     ),
                   ),
-                  10.verticalSpace,
+                  const SizedBox(height: 10),
+                  //google button
                   FilledButton.icon(
                       onPressed: () {},
                       style: FilledButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),
                       ),
                       label: const Text(
-                        'Signup with Gmail',
+                        'Signup with Google',
                         style: TextStyle(fontSize: 16),
                       ),
                       icon: SizedBox(
                           height: 25,
                           width: 25,
                           child: Image.asset('assets/images/google.png'))),
+                  //register button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -177,11 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
-                              ));
+                          Navigator.pushNamed(context, '/register');
                         },
                         child: const Text(
                           'Create one now',
