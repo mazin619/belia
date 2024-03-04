@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<Register> createState() => _RegisterState();
 }
 
 final List<String> gender = ['Male', 'Female'];
@@ -55,7 +55,7 @@ final List<String> carColor = [
   'Green'
 ];
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterState extends State<Register> {
   final registerFromKey = GlobalKey<FormState>();
   final fNameController = TextEditingController();
   final lNameController = TextEditingController();
