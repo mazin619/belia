@@ -470,7 +470,7 @@ class _RegisterState extends State<Register> {
                                           (value == null || value.isEmpty)) {
                                         return "Please enter plate number";
                                       } else if (hasCar &&
-                                          !RegExp(r'^([A-Z]{3}|[\u0621-\u064A]{1}(?: [\u0621-\u064A]{1}){2})$')
+                                          !RegExp(r'^([A-Z]{1,3}|[\u0621-\u064A](?: [\u0621-\u064A]){0,2})$')
                                               .hasMatch(value!)) {
                                         return "Not valid";
                                       }
@@ -484,7 +484,7 @@ class _RegisterState extends State<Register> {
                                       contentPadding: EdgeInsets.zero,
                                     ),
                                     inputFormatters: [
-                                      LengthLimitingTextInputFormatter(6),
+                                      LengthLimitingTextInputFormatter(5),
                                     ],
                                   ),
                                 ),
