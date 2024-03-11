@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/static_list.dart';
+import 'data/car.dart';
 
 class MyCars extends StatefulWidget {
   const MyCars({super.key});
