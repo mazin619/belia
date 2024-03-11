@@ -56,7 +56,7 @@ final List<String> carColor = [
 ];
 
 class _RegisterState extends State<Register> {
-  final registerFromKey = GlobalKey<FormState>();
+  final registerFormKey = GlobalKey<FormState>();
   final fNameController = TextEditingController();
   final lNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -97,7 +97,7 @@ class _RegisterState extends State<Register> {
         child: Padding(
           padding: const EdgeInsets.all(25),
           child: Form(
-            key: registerFromKey,
+            key: registerFormKey,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -666,7 +666,7 @@ class _RegisterState extends State<Register> {
                                             selectedColor = value!;
                                           });
                                         },
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -679,7 +679,7 @@ class _RegisterState extends State<Register> {
                   //register button
                   FilledButton(
                     onPressed: () {
-                      if (registerFromKey.currentState!.validate()) {}
+                      if (registerFormKey.currentState!.validate()) {}
                     },
                     style: FilledButton.styleFrom(
                       minimumSize: const Size(double.infinity, 50),

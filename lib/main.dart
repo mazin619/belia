@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myapps/screens/add_car.dart';
 
 import 'package:myapps/screens/auth/login.dart';
 import 'package:myapps/screens/auth/register.dart';
+import 'package:myapps/screens/customer_info.dart';
+import 'package:myapps/screens/my_cars.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,10 +44,13 @@ class MyApp extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.red)),
         ),
       ),
-      initialRoute: 'login',
+      initialRoute: 'myCars',
       routes: {
         'login': (context) => const Login(),
         'register': (context) => const Register(),
+        'customerInfo': (context) => const CustomerInfo(),
+        'myCars': (context) => const MyCars(),
+        'addCar': (context) => const AddCar(),
       },
     );
   }
