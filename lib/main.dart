@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:myapps/screens/add_car.dart';
 
-import 'package:myapps/screens/auth/login.dart';
-import 'package:myapps/screens/auth/register.dart';
-import 'package:myapps/screens/customer_info.dart';
-import 'package:myapps/screens/my_cars.dart';
+import 'add_car.dart';
+import 'auth/login.dart';
+import 'auth/register.dart';
+import 'customer_info.dart';
+import 'my_cars.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Belia Cars Servicessss',
+      title: 'Belia Cars Services',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Poppins',

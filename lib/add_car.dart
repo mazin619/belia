@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:myapps/data/car.dart';
 import 'package:myapps/data/static_list.dart';
 
-import '../data/car.dart';
-
 class AddCar extends StatefulWidget {
   const AddCar({super.key});
 
@@ -115,9 +113,9 @@ class _AddCarState extends State<AddCar> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
-                    child: const Text(
+                    child: Text(
                       '-',
                       textAlign: TextAlign.center,
                     ),
