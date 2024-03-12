@@ -53,7 +53,7 @@ class _MyCarsState extends State<MyCars> {
                                         ),
                                         actions: <Widget>[
                                           TextButton(
-                                            child: const Text('Nevermind'),
+                                            child: const Text('Cancel'),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },

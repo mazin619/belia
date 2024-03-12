@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapps/about_us.dart';
+import 'package:myapps/contact_us.dart';
 
 import 'add_car.dart';
 import 'auth/login.dart';
@@ -48,13 +50,15 @@ class MyApp extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.red)),
         ),
       ),
-      initialRoute: 'myCars',
+      initialRoute: 'contact-us',
       routes: {
         'login': (context) => const Login(),
         'register': (context) => const Register(),
-        'customerInfo': (context) => const CustomerInfo(),
-        'myCars': (context) => const MyCars(),
-        'addCar': (context) => const AddCar(),
+        'customer-info': (context) => const CustomerInfo(),
+        'my-cars': (context) => const MyCars(),
+        'add-car': (context) => const AddCar(),
+        'about-us': (context) => const AboutUs(),
+        'contact-us': (context) => const ContactUs(),
       },
     );
   }
