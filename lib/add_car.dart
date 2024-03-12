@@ -25,7 +25,7 @@ class _AddCarState extends State<AddCar> {
   final plateLettersController = TextEditingController();
   final plateNumberController = TextEditingController();
   final mileageController = TextEditingController();
-  String? selectedColor;
+  String selectedColor = 'Black';
 
   @override
   void dispose() {
@@ -43,51 +43,28 @@ class _AddCarState extends State<AddCar> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Add Car'),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Form(
           key: addFormKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: brandController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter brand name";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Brand name',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: TextFormField(
-                      controller: modelController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter model name";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Car model',
-                      ),
-                    ),
-                  ),
-                ],
+              //plates
+              const Text(
+                'Plate Number',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 5),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
+                    flex: 2,
                     child: TextFormField(
                       controller: plateLettersController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -112,14 +89,20 @@ class _AddCarState extends State<AddCar> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 20,
-                    child: Text(
-                      '-',
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      readOnly: true,
                       textAlign: TextAlign.center,
+                      decoration: const InputDecoration(
+                        hintText: '-',
+                        contentPadding: EdgeInsets.zero,
+                      ),
                     ),
                   ),
+                  const SizedBox(width: 10),
                   Expanded(
+                    flex: 2,
                     child: TextFormField(
                       controller: plateNumberController,
                       keyboardType: TextInputType.number,
@@ -142,56 +125,136 @@ class _AddCarState extends State<AddCar> {
                   ),
                 ],
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 15),
+              //brand,model
               Row(
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      controller: mileageController,
-                      keyboardType: TextInputType.number,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter car mileage";
-                        } else if (!RegExp(r'^\d{1,4}(?:\.\d{1,2})?$')
-                            .hasMatch(value)) {
-                          return "Enter a valid value";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                          hintText: '0.0',
-                          suffixText: 'L/100 km',
-                          contentPadding: EdgeInsets.symmetric(horizontal: 15)),
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(6),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Brand Name',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        TextFormField(
+                          controller: brandController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter brand name";
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Toyota',
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 10),
                   Expanded(
-                    child: DropdownButtonFormField(
-                      value: selectedColor,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please select color";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Select color',
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                      ),
-                      items: carColor
-                          .map(
-                              (e) => DropdownMenuItem(value: e, child: Text(e)))
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedColor = value!;
-                        });
-                      },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Model Name',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        TextFormField(
+                          controller: modelController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter model name";
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Yaris',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              //mileage, color
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Car Mileage',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        TextFormField(
+                          controller: mileageController,
+                          keyboardType: TextInputType.number,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter car mileage";
+                            } else if (!RegExp(r'^\d{1,4}(?:\.\d{1,2})?$')
+                                .hasMatch(value)) {
+                              return "Enter a valid value";
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                              hintText: '0.0',
+                              suffixText: 'L/100 km',
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 15)),
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(6),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Car Color',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        DropdownButton(
+                          value: selectedColor,
+                          hint: const Text('Select color'),
+                          borderRadius: BorderRadius.circular(22),
+                          items: carColor
+                              .map((e) =>
+                                  DropdownMenuItem(value: e, child: Text(e)))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedColor = value!;
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -204,7 +267,7 @@ class _AddCarState extends State<AddCar> {
                     Car newCar = Car(
                         brandController.text,
                         modelController.text,
-                        selectedColor!,
+                        selectedColor,
                         '${plateLettersController.text} - ${plateNumberController.text}');
                     //then add car to the list
                     ownedCars.add(newCar);
@@ -226,7 +289,6 @@ class _AddCarState extends State<AddCar> {
                   }
                 },
                 style: FilledButton.styleFrom(
-                  backgroundColor: Colors.red,
                   minimumSize: const Size(double.infinity, 50),
                 ),
                 child: const Text(

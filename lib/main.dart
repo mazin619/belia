@@ -21,7 +21,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
         colorScheme: const ColorScheme.light(
-          primary: Color.fromARGB(255, 35, 35, 35),
+          primary: Color.fromARGB(255, 224, 58, 58),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 224, 58, 58),
+          foregroundColor: Colors.white,
         ),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: const TextStyle(fontSize: 13),

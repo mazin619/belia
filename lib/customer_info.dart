@@ -33,7 +33,6 @@ class _CustomerInfoState extends State<CustomerInfo> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Customer Info'),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -44,90 +43,155 @@ class _CustomerInfoState extends State<CustomerInfo> {
               Row(
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      controller: fNameController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter first name";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Enter first name',
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(
-                            r'^[a-zA-Z\u0600-\u06FF]+$',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'First Name',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
+                        ),
+                        const SizedBox(height: 5),
+                        TextFormField(
+                          controller: fNameController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter first name";
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Enter first name',
+                          ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp(
+                                r'^[a-zA-Z\u0600-\u06FF]+$',
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: TextFormField(
-                      controller: lNameController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter last name";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Enter last name',
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^[a-zA-Z\u0600-\u06FF]+$')),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Last Name',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        TextFormField(
+                          controller: lNameController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter last name";
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Enter last name',
+                          ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^[a-zA-Z\u0600-\u06FF]+$')),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 25),
-              TextFormField(
-                controller: phoneController,
-                keyboardType: TextInputType.phone,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter phone";
-                  } else if (!RegExp(r'^(010|011|012|015)\d{8}$')
-                      .hasMatch(value)) {
-                    return "Enter a valid phone";
-                  }
-                  return null;
-                },
-                decoration: const InputDecoration(
-                  hintText: 'Enter your phone',
-                ),
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(11),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Phone',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  TextFormField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter phone";
+                      } else if (!RegExp(r'^(010|011|012|015)\d{8}$')
+                          .hasMatch(value)) {
+                        return "Enter a valid phone";
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter your phone',
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11),
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(height: 25),
-              TextFormField(
-                controller: addressController,
-                maxLength: 50,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter address";
-                  }
-                  return null;
-                },
-                decoration: const InputDecoration(
-                  hintText: 'Enter your address',
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Address',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  TextFormField(
+                    controller: addressController,
+                    maxLength: 50,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter address";
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter your address',
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
-              TextFormField(
-                controller: landmarkController,
-                maxLength: 50,
-                decoration: const InputDecoration(
-                  hintText: 'Landmark (optional)',
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Landmark (optional)',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  TextFormField(
+                    controller: landmarkController,
+                    maxLength: 50,
+                    decoration: const InputDecoration(
+                      hintText: 'eg: Hospital',
+                    ),
+                  ),
+                ],
               ),
               const Spacer(),
               FilledButton(

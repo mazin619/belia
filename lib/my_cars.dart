@@ -15,7 +15,6 @@ class _MyCarsState extends State<MyCars> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Cars'),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -33,9 +32,10 @@ class _MyCarsState extends State<MyCars> {
                           child: Column(
                             children: [
                               ListTile(
-                                titleAlignment: ListTileTitleAlignment.top,
-                                minVerticalPadding: 20,
-                                leading: Text((index + 1).toString()),
+                                leading: const Icon(
+                                  Icons.drive_eta,
+                                  size: 25,
+                                ),
                                 title: Text(
                                     '${ownedCars[index].brand},${ownedCars[index].model}'),
                                 subtitle: Text(ownedCars[index].color),
@@ -71,9 +71,6 @@ class _MyCarsState extends State<MyCars> {
                                     },
                                   );
                                 },
-                                style: FilledButton.styleFrom(
-                                  backgroundColor: Colors.red,
-                                ),
                                 child: const Text('Delete Car'),
                               ),
                               const SizedBox(height: 10),
@@ -90,7 +87,6 @@ class _MyCarsState extends State<MyCars> {
                 });
               },
               style: FilledButton.styleFrom(
-                backgroundColor: Colors.red,
                 minimumSize: const Size(double.infinity, 50),
               ),
               child: const Text(
@@ -98,6 +94,7 @@ class _MyCarsState extends State<MyCars> {
                 style: TextStyle(fontSize: 17),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
