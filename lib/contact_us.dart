@@ -27,7 +27,7 @@ class ContactUs extends StatelessWidget {
                 onPressed: () {
                   final Uri launchUri = Uri(
                     scheme: 'tel',
-                    path: '19666',
+                    path: '01097936736',
                   );
                   launchUrl(launchUri);
                 },
@@ -53,13 +53,43 @@ class ContactUs extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Image.asset('assets/images/facebook.jpg', height: 40),
-                  Image.asset(
-                    'assets/images/gmail.jpg',
-                    height: 30,
+                  GestureDetector(
+                      onTap: () {
+                        _launchSocial(
+                            'https://www.facebook.com/profile.php?id=61557081369133&mibextid=ZbWKwL');
+                      },
+                      child: Image.asset('assets/images/facebook.jpg',
+                          height: 40)),
+                  GestureDetector(
+                    onTap: () {
+                      try {
+                        final Uri emailLaunchUri = Uri(
+                          scheme: 'mailto',
+                          path: 'belliacar000@gmail.com',
+                        );
+                        launchUrl(emailLaunchUri);
+                      } catch (e) {
+                        //Handle error
+                      }
+                    },
+                    child: Image.asset(
+                      'assets/images/gmail.jpg',
+                      height: 40,
+                    ),
                   ),
-                  Image.asset('assets/images/instagram.jpg', height: 40),
-                  Image.asset('assets/images/twitter.jpg', height: 40),
+                  GestureDetector(
+                      onTap: () {
+                        _launchSocial(
+                            'https://www.instagram.com/belliacarservice?igsh=MTB3ZGk3bWM1aXkwaA==');
+                      },
+                      child:
+                          Image.asset('assets/images/insta.jpg', height: 40)),
+                  GestureDetector(
+                      onTap: () {
+                        _launchSocial(
+                            'https://x.com/BelliaS40801?t=b5upZztBi33rSw8QX76uQA&s=09');
+                      },
+                      child: Image.asset('assets/images/x.png', height: 40)),
                 ],
               ),
             ),
@@ -67,5 +97,15 @@ class ContactUs extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void _launchSocial(String url, {String? fallbackUrl}) async {
+  try {
+    final Uri uri = Uri.parse(url);
+    await launchUrl(uri, mode: LaunchMode.platformDefault);
+  } catch (e) {
+    final Uri fallbackUri = Uri.parse(fallbackUrl ?? '');
+    await launchUrl(fallbackUri, mode: LaunchMode.externalApplication);
   }
 }

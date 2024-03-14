@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
@@ -54,9 +55,28 @@ class AboutUs extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Image.asset('assets/images/facebook.jpg', height: 50),
-                  Image.asset('assets/images/instagram.jpg', height: 50),
-                  Image.asset('assets/images/twitter.jpg', height: 50),
+                  GestureDetector(
+                    onTap: () {
+                      _launchSocial(
+                          'https://www.facebook.com/profile.php?id=61557081369133&mibextid=ZbWKwL');
+                    },
+                    child:
+                        Image.asset('assets/images/facebook.jpg', height: 40),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      _launchSocial(
+                          'https://www.instagram.com/belliacarservice?igsh=MTB3ZGk3bWM1aXkwaA==');
+                    },
+                    child: Image.asset('assets/images/insta.jpg', height: 40),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      _launchSocial(
+                          'https://x.com/BelliaS40801?t=b5upZztBi33rSw8QX76uQA&s=09');
+                    },
+                    child: Image.asset('assets/images/x.png', height: 40),
+                  ),
                 ],
               ),
             ),
@@ -64,5 +84,15 @@ class AboutUs extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void _launchSocial(String url, {String? fallbackUrl}) async {
+  try {
+    final Uri uri = Uri.parse(url);
+    await launchUrl(uri, mode: LaunchMode.platformDefault);
+  } catch (e) {
+    final Uri fallbackUri = Uri.parse(fallbackUrl ?? '');
+    await launchUrl(fallbackUri, mode: LaunchMode.externalApplication);
   }
 }
